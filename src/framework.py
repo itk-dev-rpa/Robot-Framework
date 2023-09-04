@@ -7,7 +7,7 @@ import initialize
 import get_constants
 import reset
 import error_screenshot
-from process import process
+import process
 
 def main():
     orchestrator_connection = OrchestratorConnection.create_connection_from_args()
@@ -29,7 +29,7 @@ def main():
             reset.reset(orchestrator_connection)
 
             orchestrator_connection.log_trace("Running process.")
-            process(orchestrator_connection)
+            process.process(orchestrator_connection)
 
             break
 
