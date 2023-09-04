@@ -1,6 +1,4 @@
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from OpenOrchestratorConnection.orchestrator_connection import OrchestratorConnection
+from OpenOrchestratorConnection.orchestrator_connection import OrchestratorConnection
 
 def reset(orchestrator_connection:OrchestratorConnection) -> None:
     """Clean up, close/kill all programs and start them again. """
