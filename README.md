@@ -12,7 +12,7 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 * src/initialize.py
 * src/get_constants.py
 * src/reset.py
-* src.reset.py
+* src/process.py
 * Feel free to add more files as needed.
 
 4. Make sure the smtp setup in error_screenshot.py is setup to your needs.
