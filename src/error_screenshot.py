@@ -1,18 +1,17 @@
 import smtplib
 from email.message import EmailMessage
-from datetime import datetime
 import os
 import base64
 import traceback
 
 from PIL import ImageGrab
 
-def send_error_screenshot(to_adress:str | list[str], exception:Exception):
+def send_error_screenshot(to_adress:str | list[str], exception:Exception, process_name:str):
     # Create message
     msg = EmailMessage()
     msg['to'] = to_adress
     msg['from'] = 'robot@friend.dk'
-    msg['subject'] = f"Error screenshot {datetime.now()}"
+    msg['subject'] = f"Error screenshot: {process_name}"
 
     # Take screenshot
     screenshot = ImageGrab.grab()
@@ -22,6 +21,9 @@ def send_error_screenshot(to_adress:str | list[str], exception:Exception):
     with open("screenshot.png", "rb") as img_file:
         screenshot_data = img_file.read()
         screenshot_base64 = base64.b64encode(screenshot_data).decode('utf-8')
+    
+    # Delete screenshot
+    os.remove('screenshot.png')
 
     # Create an HTML message with the embedded image
     html_message = f"""
@@ -37,9 +39,6 @@ def send_error_screenshot(to_adress:str | list[str], exception:Exception):
 
     msg.set_content("Please enable HTML to view this message.")
     msg.add_alternative(html_message, subtype='html')
-    
-    # Delete screenshot
-    os.remove('screenshot.png')
 
     # Send message
     with smtplib.SMTP("smtp.aarhuskommune.local", 25) as smtp:
@@ -49,6 +48,6 @@ def send_error_screenshot(to_adress:str | list[str], exception:Exception):
 
 if __name__ == '__main__':
     try:
-        raise ValueError("Du har lavet en fejl")
+        raise ValueError("Oh no!")
     except Exception as e:
-        send_error_screenshot("ghbm@aarhus.dk", e)
+        send_error_screenshot("ghbm@aarhus.dk", e, "Test proc")
