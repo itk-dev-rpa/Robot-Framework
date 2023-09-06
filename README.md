@@ -22,6 +22,9 @@ main.bat does a few things:
 1. A virtual environment is automatically setup with the required packages.
 2. The framework is called passing on all arguments needed by [OpenOrchestratorConnection](https://github.com/itk-dev-rpa/OpenOrchestratorConnection).
 
+## Requirements
+Minimum python versiomn 3.10
+
 ## Flow
 
 The flow of the framework is sketched up in the following illustration:
