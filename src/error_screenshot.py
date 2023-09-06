@@ -6,10 +6,10 @@ import traceback
 
 from PIL import ImageGrab
 
-def send_error_screenshot(to_adress:str | list[str], exception:Exception, process_name:str):
+def send_error_screenshot(to_address: str | list[str], exception:Exception, process_name:str):
     # Create message
     msg = EmailMessage()
-    msg['to'] = to_adress
+    msg['to'] = to_address
     msg['from'] = 'robot@friend.dk'
     msg['subject'] = f"Error screenshot: {process_name}"
 

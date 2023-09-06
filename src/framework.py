@@ -35,22 +35,22 @@ def main():
 
         except BusinessError as error:
             orchestrator_connection.log_error(f"BusinessError: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(constants['Error Email'], error, orchestrator_connection.process_name)
+            error_screenshot.send_error_screenshot(constants.error_email, error, orchestrator_connection.process_name)
             break
 
         except Exception as error:
             error_count += 1
             error_type = type(error).__name__
             orchestrator_connection.log_error(f"Error caught during process. Number of errors caught: {error_count}. {error_type}: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(constants['Error Email'], error, orchestrator_connection.process_name)
+            error_screenshot.send_error_screenshot(constants.error_email, error, orchestrator_connection.process_name)
 
     
-    reset.clean_up()
-    reset.close_all()
-    reset.kill_all()
+    reset.clean_up(orchestrator_connection)
+    reset.close_all(orchestrator_connection)
+    reset.kill_all(orchestrator_connection)
 
 
-def log_exception(orchestrator_connection:OrchestratorConnection) -> callable:
+def log_exception(orchestrator_connection: OrchestratorConnection) -> callable:
     def inner(type, value, traceback):
         orchestrator_connection.log_error(f"Uncaught Exception:\nType: {type}\nValue: {value}\nTrace: {traceback}")
     return inner
