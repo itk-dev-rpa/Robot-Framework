@@ -1,11 +1,17 @@
 from OpenOrchestratorConnection.orchestrator_connection import OrchestratorConnection
 
-def get_constants(orchestrator_connection:OrchestratorConnection) -> dict:
+
+class Constants:
+    """Define your constants."""
+    def __init__(self):
+        self.error_email = None
+
+
+def get_constants(orchestrator_connection: OrchestratorConnection) -> Constants:
     """Get all constants used by the robot."""
-    constants = {}
+    constants = Constants()
 
     # Get email address to send error screenshots to
-    error_email = orchestrator_connection.get_constant("Error Email")
-    constants["Error Email"] = error_email
+    constants.error_email = orchestrator_connection.get_constant("Error Email")
 
     return constants
