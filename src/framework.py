@@ -15,7 +15,7 @@ def main():
 
     orchestrator_connection.log_trace("Process started.")
 
-    orchestrator_connection.log_trace("Initialzing.")
+    orchestrator_connection.log_trace("Initializing.")
     initialize.initialize(orchestrator_connection)
 
     orchestrator_connection.log_trace("Getting constants.")

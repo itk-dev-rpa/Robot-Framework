@@ -1,6 +1,6 @@
 from OpenOrchestratorConnection.orchestrator_connection import OrchestratorConnection
 
-def get_constants(orchestrator_connection:OrchestratorConnection) -> dict:
+def get_constants(orchestrator_connection: OrchestratorConnection) -> dict:
     """Get all constants used by the robot."""
     constants = {}
 

@@ -15,7 +15,7 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 * src/process.py
 * Feel free to add more files as needed.
 
-4. Make sure the smtp setup in error_screenshot.py is setup to your needs.
+4. Make sure the smtp setup in error_screenshot.py is set up to your needs.
 
 When the robot is run from OpenOrchestrator the main.bat file is run.
 main.bat does a few things:
