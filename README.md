@@ -23,7 +23,7 @@ main.bat does a few things:
 2. The framework is called passing on all arguments needed by [OpenOrchestratorConnection](https://github.com/itk-dev-rpa/OpenOrchestratorConnection).
 
 ## Requirements
-Minimum python versiomn 3.10
+Minimum python version 3.10
 
 ## Flow
 
