@@ -20,7 +20,7 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 When the robot is run from OpenOrchestrator the main.bat file is run.
 main.bat does a few things:
 1. A virtual environment is automatically setup with the required packages.
-2. The framework is called passing on all arguments needed by [OpenOrchestratorConnection](https://github.com/itk-dev-rpa/OpenOrchestratorConnection).
+2. The framework is called passing on all arguments needed by [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator).
 
 ## Requirements
 Minimum python version 3.10
