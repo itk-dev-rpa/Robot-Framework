@@ -15,7 +15,7 @@ def get_constants(orchestrator_connection: OrchestratorConnection) -> Constants:
     orchestrator_connection.log_trace("Getting constants.")
 
     constants = Constants(
-        error_email = orchestrator_connection.get_constant("Error Email")
+        error_email = orchestrator_connection.get_constant("Error Email").value
     )
 
     return constants

@@ -17,10 +17,8 @@ def main():
     orchestrator_connection = OrchestratorConnection.create_connection_from_args()
     sys.excepthook = log_exception(orchestrator_connection)
 
-    orchestrator_connection.log_trace("Process started.")
-
+    orchestrator_connection.log_trace("Robot Framework started.")
     initialize.initialize(orchestrator_connection)
-
     constants = get_constants.get_constants(orchestrator_connection)
 
     error_count = 0
@@ -41,7 +39,7 @@ def main():
         except Exception as error:
             error_count += 1
             error_type = type(error).__name__
-            orchestrator_connection.log_error(f"Error caught during process. Number of errors caught: {error_count}. {error_type}: {error}\nTrace: {traceback.format_exc()}")
+            orchestrator_connection.log_error(f"Error caught during process. Total number of errors caught: {error_count}. {error_type}: {error}\nTrace: {traceback.format_exc()}")
             error_screenshot.send_error_screenshot(constants.error_email, error, orchestrator_connection.process_name)
 
     reset.clean_up(orchestrator_connection)
@@ -49,7 +47,7 @@ def main():
     reset.kill_all(orchestrator_connection)
 
 
-def log_exception(orchestrator_connection:OrchestratorConnection) -> callable:
+def log_exception(orchestrator_connection: OrchestratorConnection) -> callable:
     """Creates a function to be used as an exception hook that logs any uncaught exception in OpenOrchestrator.
 
     Args:
