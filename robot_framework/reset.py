@@ -2,7 +2,8 @@
 
 from OpenOrchestrator.orchestrator_connection.connection import OrchestratorConnection
 
-def reset(orchestrator_connection:OrchestratorConnection) -> None:
+
+def reset(orchestrator_connection: OrchestratorConnection) -> None:
     """Clean up, close/kill all programs and start them again. """
     orchestrator_connection.log_trace("Resetting.")
     clean_up(orchestrator_connection)

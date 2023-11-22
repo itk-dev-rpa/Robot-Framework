@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from OpenOrchestrator.orchestrator_connection.connection import OrchestratorConnection
 
+
 @dataclass(kw_only=True)
 class Constants:
     """An object for holding any robot specific constants. Expand as needed"""

@@ -12,6 +12,7 @@ from robot_framework import error_screenshot
 from robot_framework import process
 from robot_framework import config
 
+
 def main():
     """The entry point for the framework. Should be called as the first thing when running the robot."""
     orchestrator_connection = OrchestratorConnection.create_connection_from_args()

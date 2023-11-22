@@ -10,6 +10,7 @@ from PIL import ImageGrab
 
 from robot_framework import config
 
+
 def send_error_screenshot(to_address: str | list[str], exception: Exception, process_name: str):
     """Sends an email with an error report, including a screenshot, when an exception occurs.
     Configuration details such as SMTP server, port, sender email, etc., should be set in 'config' module.
