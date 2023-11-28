@@ -1,13 +1,13 @@
 """This module is the primary module of the robot framework. It collects the functionality of the rest of the framework."""
 
-import traceback
 import sys
 
 from OpenOrchestrator.orchestrator_connection.connection import OrchestratorConnection
+from OpenOrchestrator.database.queues import QueueStatus
 
 from robot_framework import initialize
 from robot_framework import reset
-from robot_framework import error_screenshot
+from robot_framework.exceptions import handle_error, BusinessError, log_exception
 from robot_framework import process
 from robot_framework import config
 
@@ -20,47 +20,35 @@ def main():
     orchestrator_connection.log_trace("Robot Framework started.")
     initialize.initialize(orchestrator_connection)
 
-    error_email = orchestrator_connection.get_constant(config.ERROR_EMAIL).value
-
     error_count = 0
+    task_count = 0
     for _ in range(config.MAX_RETRY_COUNT):
         try:
             reset.reset(orchestrator_connection)
-            process.process(orchestrator_connection)
-            break
 
-        # If any business rules are broken the robot should stop entirely.
-        except BusinessError as error:
-            orchestrator_connection.log_error(f"BusinessError: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(error_email, error, orchestrator_connection.process_name)
+            while task_count < config.MAX_TASK_COUNT:
+                task_count += 1
+                queue_element = orchestrator_connection.get_next_queue_element(config.QUEUE_NAME)
+
+                if not queue_element:
+                    orchestrator_connection.log_info("Queue empty.")
+                    break
+
+                try:
+                    process.process(orchestrator_connection)
+                    orchestrator_connection.set_queue_element_status(queue_element.id, QueueStatus.DONE)
+
+                except BusinessError as error:
+                    handle_error("Business Error", error, queue_element, orchestrator_connection)
+
             break
 
         # We actually want to catch all exceptions possible here.
         # pylint: disable-next = broad-exception-caught
         except Exception as error:
             error_count += 1
-            error_type = type(error).__name__
-            orchestrator_connection.log_error(f"Error caught during process. Total number of errors caught: {error_count}. {error_type}: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(error_email, error, orchestrator_connection.process_name)
+            handle_error(f"Process Error #{error_count}", error, queue_element, orchestrator_connection)
 
     reset.clean_up(orchestrator_connection)
     reset.close_all(orchestrator_connection)
     reset.kill_all(orchestrator_connection)
-
-
-def log_exception(orchestrator_connection: OrchestratorConnection) -> callable:
-    """Creates a function to be used as an exception hook that logs any uncaught exception in OpenOrchestrator.
-
-    Args:
-        orchestrator_connection: The connection to OpenOrchestrator.
-
-    Returns:
-        callable: A function that can be assigned to sys.excepthook.
-    """
-    def inner(exception_type, value, traceback_string):
-        orchestrator_connection.log_error(f"Uncaught Exception:\nType: {exception_type}\nValue: {value}\nTrace: {traceback_string}")
-    return inner
-
-
-class BusinessError(Exception):
-    """An empty exception used to identify errors caused by breaking business rules"""
