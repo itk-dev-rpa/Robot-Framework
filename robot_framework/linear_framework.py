@@ -6,7 +6,6 @@ import sys
 from OpenOrchestrator.orchestrator_connection.connection import OrchestratorConnection
 
 from robot_framework import initialize
-from robot_framework import get_constants
 from robot_framework import reset
 from robot_framework import error_screenshot
 from robot_framework import process
@@ -20,7 +19,8 @@ def main():
 
     orchestrator_connection.log_trace("Robot Framework started.")
     initialize.initialize(orchestrator_connection)
-    constants = get_constants.get_constants(orchestrator_connection)
+
+    error_email = orchestrator_connection.get_constant(config.ERROR_EMAIL).value
 
     error_count = 0
     for _ in range(config.MAX_RETRY_COUNT):
@@ -32,7 +32,7 @@ def main():
         # If any business rules are broken the robot should stop entirely.
         except BusinessError as error:
             orchestrator_connection.log_error(f"BusinessError: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(constants.error_email, error, orchestrator_connection.process_name)
+            error_screenshot.send_error_screenshot(error_email, error, orchestrator_connection.process_name)
             break
 
         # We actually want to catch all exceptions possible here.
@@ -41,7 +41,7 @@ def main():
             error_count += 1
             error_type = type(error).__name__
             orchestrator_connection.log_error(f"Error caught during process. Total number of errors caught: {error_count}. {error_type}: {error}\nTrace: {traceback.format_exc()}")
-            error_screenshot.send_error_screenshot(constants.error_email, error, orchestrator_connection.process_name)
+            error_screenshot.send_error_screenshot(error_email, error, orchestrator_connection.process_name)
 
     reset.clean_up(orchestrator_connection)
     reset.close_all(orchestrator_connection)
