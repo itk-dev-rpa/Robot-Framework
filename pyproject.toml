@@ -19,3 +19,9 @@ dependencies = [
     "OpenOrchestrator == 1.*",
     "Pillow == 9.5.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+  "pylint",
+  "flake8"
+]
