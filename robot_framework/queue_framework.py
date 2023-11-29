@@ -23,6 +23,7 @@ def main():
     orchestrator_connection.log_trace("Robot Framework started.")
     initialize.initialize(orchestrator_connection)
 
+    queue_element = None
     error_count = 0
     task_count = 0
     for _ in range(config.MAX_RETRY_COUNT):
