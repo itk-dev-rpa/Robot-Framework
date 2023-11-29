@@ -1,5 +1,8 @@
 """This module is the primary module of the robot framework. It collects the functionality of the rest of the framework."""
 
+# This module is not meant to exist next to queue_framework.py in production:
+# pylint: disable=duplicate-code
+
 import sys
 
 from OpenOrchestrator.orchestrator_connection.connection import OrchestratorConnection
