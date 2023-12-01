@@ -36,7 +36,7 @@ def main():
 
                 if not queue_element:
                     orchestrator_connection.log_info("Queue empty.")
-                    break
+                    break# TODO: Doesn't break the outer loop!
 
                 try:
                     process.process(orchestrator_connection)
