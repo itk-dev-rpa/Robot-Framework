@@ -26,17 +26,19 @@ def main():
     queue_element = None
     error_count = 0
     task_count = 0
+    # Retry loop
     for _ in range(config.MAX_RETRY_COUNT):
         try:
             reset.reset(orchestrator_connection)
 
+            # Queue loop
             while task_count < config.MAX_TASK_COUNT:
                 task_count += 1
                 queue_element = orchestrator_connection.get_next_queue_element(config.QUEUE_NAME)
 
                 if not queue_element:
                     orchestrator_connection.log_info("Queue empty.")
-                    break# TODO: Doesn't break the outer loop!
+                    break  # Break queue loop
 
                 try:
                     process.process(orchestrator_connection)
@@ -45,7 +47,7 @@ def main():
                 except BusinessError as error:
                     handle_error("Business Error", error, queue_element, orchestrator_connection)
 
-            break
+            break  # Break retry loop
 
         # We actually want to catch all exceptions possible here.
         # pylint: disable-next = broad-exception-caught
