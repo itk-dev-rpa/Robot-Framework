@@ -58,3 +58,6 @@ def main():
     reset.clean_up(orchestrator_connection)
     reset.close_all(orchestrator_connection)
     reset.kill_all(orchestrator_connection)
+
+    if error_count == config.MAX_RETRY_COUNT:
+        raise RuntimeError("Process failed too many times.")
