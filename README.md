@@ -5,23 +5,24 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 ## Quick start
 
 1. To use the template simply use the repo as a template as shown [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+__Don't__ include all branches.
 
-2. Go to `robot_framework/__main__.py` and choose between the linear framework or queue-based framework.
+2. Go to `robot_framework/__main__.py` and choose between the linear framework or queue based framework.
 
 3. Implement all functions in the files:
     * `robot_framework/initialize.py`
     * `robot_framework/reset.py`
     * `robot_framework/process.py`
 
-4. Change config.py to your needs.
+4. Change `config.py` to your needs.
 
-5. Fill out the dependencies in the pyproject.toml file with all packages needed by the robot.
+5. Fill out the dependencies in the `pyproject.toml` file with all packages needed by the robot.
 
 6. Feel free to add more files as needed. Remember that any additional python files must
-be located in the folder `robot_framework`.
+be located in the folder `robot_framework` or a subfolder of it.
 
-When the robot is run from OpenOrchestrator the main.py file is run.
-main.py does a few things:
+When the robot is run from OpenOrchestrator the `main.py` file is run which results
+in the following:
 1. The working directory is changed to where `main.py` is located.
 2. A virtual environment is automatically setup with the required packages.
 3. The framework is called passing on all arguments needed by [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator).
@@ -50,7 +51,7 @@ The queue framework is used when the robot is doing multiple bite-sized tasks de
 OpenOrchestrator queue.
 The flow of the queue framework is sketched up in the following illustration:
 
-![Queue Flow diagram](Robot-Queue-Framework.drawio.svg)
+![Queue Flow diagram](Robot-Queue-Framework.svg)
 
 ## Linting and Github Actions
 
