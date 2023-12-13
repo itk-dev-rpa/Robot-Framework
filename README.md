@@ -42,7 +42,7 @@ The linear framework is used when a robot is just going from A to Z without fetc
 OpenOrchestrator queue.
 The flow of the linear framework is sketched up in the following illustration:
 
-<!-- ![Linear Flow diagram](Illustrations/Robot-Framework.svg) -->
+![Linear Flow diagram](Robot-Framework.svg)
 
 ### Queue Flow
 
@@ -50,7 +50,7 @@ The queue framework is used when the robot is doing multiple bite-sized tasks de
 OpenOrchestrator queue.
 The flow of the queue framework is sketched up in the following illustration:
 
-<!-- ![Queue Flow diagram](Illustrations/Robot-Queue-Framework.drawio.svg) -->
+![Queue Flow diagram](Robot-Queue-Framework.drawio.svg)
 
 ## Linting and Github Actions
 
