@@ -4,7 +4,7 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 
 ## Quick start
 
-1. To use this template simply use the repo as a template as shown [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+1. To use this template simply use this repo as a template (see [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)).
 __Don't__ include all branches.
 
 2. Go to `robot_framework/__main__.py` and choose between the linear framework or queue based framework.
@@ -34,7 +34,7 @@ Minimum python version 3.10
 
 This framework contains two different flows: A linear and a queue based.
 You should only ever use one at a time. You choose which one by going into `robot_framework/__main__.py`
-and uncomment the framework you want. They are both disabled by default and an error will be
+and uncommenting the framework you want. They are both disabled by default and an error will be
 raised to remind you if you don't choose.
 
 ### Linear Flow
