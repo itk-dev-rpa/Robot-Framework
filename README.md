@@ -4,7 +4,7 @@ This repo is meant to be used as a template for robots made for [OpenOrchestrato
 
 ## Quick start
 
-1. To use the template simply use the repo as a template as shown [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+1. To use this template simply use the repo as a template as shown [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 __Don't__ include all branches.
 
 2. Go to `robot_framework/__main__.py` and choose between the linear framework or queue based framework.
@@ -57,5 +57,5 @@ The flow of the queue framework is sketched up in the following illustration:
 
 This template is also setup with flake8 and pylint linting in Github Actions.
 This workflow will trigger whenever you push your code to Github.
-The workflow is defined under .github/workflows/Linting.yml
+The workflow is defined under `.github/workflows/Linting.yml`.
 
