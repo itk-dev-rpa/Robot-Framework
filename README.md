@@ -1,4 +1,4 @@
-# Robot-Framework V2
+# Robot-Framework V3
 
 This repo is meant to be used as a template for robots made for [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator).
 
