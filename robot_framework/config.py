@@ -7,7 +7,7 @@ MAX_RETRY_COUNT = 3
 FAIL_ROBOT_ON_TOO_MANY_ERRORS = True
 
 # Error screenshot config
-SMTP_SERVER = "smtp.aarhuskommune.local"
+SMTP_SERVER = "smtp.adm.aarhuskommune.dk"
 SMTP_PORT = 25
 SCREENSHOT_SENDER = "robot@friend.dk"
 
