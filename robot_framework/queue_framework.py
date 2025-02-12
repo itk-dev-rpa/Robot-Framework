@@ -41,7 +41,17 @@ def main():
                     break  # Break queue loop
 
                 try:
-                    process.process(orchestrator_connection, queue_element)
+                    for attempt in range(1, config.QUEUE_ATTEMPTS + 1):
+                        try:
+                            process.process(orchestrator_connection, queue_element)
+                            break
+                        except Exception as e:
+                            orchestrator_connection.log_trace(f"Attempt {attempt} failed for current queue element: {e}")
+                            if attempt < config.QUEUE_ATTEMPTS:
+                                orchestrator_connection.log_trace("Retrying queue element.")
+                            else:
+                                orchestrator_connection.log_trace(f"Queue element failed after {attempt} attempts.")
+                                raise
                     orchestrator_connection.set_queue_element_status(queue_element.id, QueueStatus.DONE)
 
                 except BusinessError as error:
