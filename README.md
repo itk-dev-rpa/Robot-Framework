@@ -1,6 +1,6 @@
-# Robot-Framework V3
+# Robot-Framework V4
 
-This repo is meant to be used as a template for robots made for [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator).
+This repo is meant to be used as a template for robots made for [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator) v2.
 
 ## Quick start
 
@@ -23,12 +23,14 @@ be located in the folder `robot_framework` or a subfolder of it.
 
 When the robot is run from OpenOrchestrator the `main.py` file is run which results
 in the following:
+
 1. The working directory is changed to where `main.py` is located.
 2. A virtual environment is automatically setup with the required packages.
 3. The framework is called passing on all arguments needed by [OpenOrchestrator](https://github.com/itk-dev-rpa/OpenOrchestrator).
 
 ## Requirements
-Minimum python version 3.10
+
+Minimum python version 3.11
 
 ## Flow
 
@@ -58,4 +60,3 @@ The flow of the queue framework is sketched up in the following illustration:
 This template is also setup with flake8 and pylint linting in Github Actions.
 This workflow will trigger whenever you push your code to Github.
 The workflow is defined under `.github/workflows/Linting.yml`.
-

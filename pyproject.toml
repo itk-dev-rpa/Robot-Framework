@@ -16,7 +16,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 dependencies = [
-    "OpenOrchestrator == 1.*",
+    "OpenOrchestrator == 2.*",
     "Pillow == 10.*",
 ]
 
