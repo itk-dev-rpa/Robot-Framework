@@ -28,6 +28,9 @@ def handle_error(message: str, error: Exception, queue_element: QueueElement | N
     error_msg = f"{message}: {repr(error)}\n\nTrace:\n{traceback.format_exc()}"
     error_email = orchestrator_connection.get_constant(config.ERROR_EMAIL).value
 
+    if len(error_msg) > 999:
+        error_msg = error_msg[:485] + "\n... [truncated] ...\n" + error_msg[-485:]
+
     orchestrator_connection.log_error(error_msg)
     if queue_element:
         orchestrator_connection.set_queue_element_status(queue_element.id, QueueStatus.FAILED, error_msg)
