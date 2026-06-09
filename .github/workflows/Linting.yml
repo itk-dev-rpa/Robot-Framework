@@ -1,32 +1,28 @@
-name: Linting
-
 on: [pull_request]
 
 jobs:
-  build:
+  python-linting:
     runs-on: windows-latest
     strategy:
       matrix:
         python-version: ["3.11"]
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v6
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        enable-cache: true
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
-        pip install flake8
-        pip install .
+    - name: Set up Python ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
 
-    - name: Analysing the code with pylint
-      run: |
-        pylint --rcfile=.pylintrc $(git ls-files '*.py')
+    - name: Install project and dev dependencies
+      run: uv sync --frozen --group dev
 
-    - name: Analysing the code with flake8
-      run: |
-        flake8 --extend-ignore=E501,E251 $(git ls-files '*.py')
+    - name: Analyzing the code with pylint
+      run: uv run pylint $(git ls-files '*.py')
+
+    - name: Analyzing the code with flake8
+      run: uv run flake8 --extend-ignore=E501,E251 $(git ls-files '*.py')
