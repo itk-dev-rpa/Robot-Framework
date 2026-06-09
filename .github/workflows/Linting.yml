@@ -21,10 +21,10 @@ jobs:
       run: uv python install ${{ matrix.python-version }}
 
     - name: Install project and dev dependencies
-      run: uv sync --frozen --group dev
+      run: uv pip install --system -e ".[dev]"
 
     - name: Analyzing the code with pylint
-      run: uv run pylint $(git ls-files '*.py')
+      run: pylint $(git ls-files '*.py')
 
     - name: Analyzing the code with flake8
-      run: uv run flake8 --extend-ignore=E501,E251 $(git ls-files '*.py')
+      run: flake8 --extend-ignore=E501,E251 $(git ls-files '*.py')
