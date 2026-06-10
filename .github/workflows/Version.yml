@@ -1,0 +1,36 @@
+name: Check pyproject.toml Version Change
+
+on: [pull_request]
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Get current version in PR branch
+        id: get-pr-version
+        run: |
+          PR_VERSION=$(sed -n -e 's/^version = "\(.*\)"/\1/p' pyproject.toml)
+          echo "PR_VERSION=$PR_VERSION" >> $GITHUB_ENV
+
+      - name: Get version in base branch
+        id: get-base-version
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git checkout FETCH_HEAD
+          BASE_VERSION=$(sed -n -e 's/^version = "\(.*\)"/\1/p' pyproject.toml)
+          echo "BASE_VERSION=$BASE_VERSION" >> $GITHUB_ENV
+
+      - name: Compare versions
+        run: |
+          echo "PR version: ${{ env.PR_VERSION }}"
+          echo "Base branch version: ${{ env.BASE_VERSION }}"
+
+          if [ "${{ env.PR_VERSION }}" == "${{ env.BASE_VERSION }}" ]; then
+            echo "Version number has not been changed."
+            exit 1
+          else
+            echo "Version number has changed."
+          fi
